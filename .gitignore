@@ -1,0 +1,30 @@
+# Virtual environment
+venvreg/
+.venvreg/
+venvreg/
+
+# Python cache and compiled files
+__pycache__/
+*.pyc
+
+# Database
+db.sqlite3
+
+# Environment variables and secrets
+.env
+*.env
+secrets.json
+
+# Static files (if collected)
+staticfiles/
+static_root/
+
+# Media files (if stored in repo)
+media/
+
+# IDE/Editor files
+.idea/
+.vscode/
+
+# Logs
+*.log
