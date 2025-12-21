@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+load_dotenv() # выгрузка
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-69*-6+8(3+aab388)97br#3u-xvdd^asg-d674w+7&x^*5+6l)'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,8 +78,13 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB'),       # имя базы данных
+        'USER': os.getenv('POSTGRES_USER'),              # суперпользователь
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),  
+        'HOST': os.getenv('POSTGRES_HOST', 'localhost'), # если нет данных, то localhost
+        'PORT': os.getenv('POSTGRES_PORT', '5432'),      # порт, по умолчанию 5432
+        'ATOMIC_REQUESTS': True,
     }
 }
 
@@ -105,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
