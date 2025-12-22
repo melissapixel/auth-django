@@ -97,16 +97,33 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
+        # Запрещает пароли, похожие на личные данные пользователя.
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
+        # Требует минимальную длину пароля.
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 8,
+        }
     },
     {
+        # Блокирует использование самых популярных паролей.
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
+        # Запрещает пароли, состоящие только из цифр.
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+    # Кастомные валидаторы — как классы:
+    {
+        'NAME': 'users.validators.UppercaseLetterValidator',
+    },
+    {
+        'NAME': 'users.validators.DigitValidator',
+    },
+    {
+        'NAME': 'users.validators.SpecialCharValidator',
     },
 ]
 
