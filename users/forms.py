@@ -1,4 +1,4 @@
-from django from django import forms    # База всех форм
+from django import forms    # База всех форм
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm  # Готовые формы регистрации и входа
 # from .models import CustomUser  # кастомная модель пользователя
 from django.contrib.auth import get_user_model  # получить текущую модель пользователя
