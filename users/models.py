@@ -64,3 +64,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self): 
         return self.email
+
+    def clean(self):
+        for field in ['address1', 'address2', 'city', 'country', 'province',
+                            'postal_code', 'phone']:
+            value = getattr(self, field)
+            if value:
+                setattr(self, field, strip_tags(value))
