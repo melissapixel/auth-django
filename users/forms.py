@@ -5,10 +5,13 @@ from django.contrib.auth import get_user_model  # получить текущу�
 
 from django.contrib.auth import password_validation  # импортируем модуль для валидации паролей
 from django.core.exceptions import ValidationError # Исключение для валидации
+from django.core.validators import MinLengthValidator  # Минимальная длина
+from .validators import name_validator
 
 from django.utils.translation import gettext_lazy as _  # Перевод сообщений
 from django.utils.html import strip_tags  # Очистка HTML из полей
 from django.core.validators import RegexValidator  # Валидация по регулярке
+
 
 
 User = get_user_model()  # получаем модель пользователя
@@ -21,12 +24,19 @@ class CustomUserCreationForm(UserCreationForm): # → получает гото�
         widget=forms.EmailInput(attrs={'class': 'input-register form-control', 'placeholder': 'Your email'})
     )
     first_name = forms.CharField(
+        validators=[
+            name_validator,      # кастомный валидатор
+            MinLengthValidator(2) # встроенный валидатор
+        ],
         required=True,
         max_length=50,
         widget=forms.TextInput(attrs={'class': 'input-register form-control', 'placeholder': 'Your first name'})
     )
     last_name = forms.CharField(
-        required=True,
+        validators=[
+            name_validator,      
+            MinLengthValidator(2)
+        ],
         max_length=50,
         widget=forms.TextInput(attrs={'class': 'input-register form-control', 'placeholder': 'Your last name'})
     )

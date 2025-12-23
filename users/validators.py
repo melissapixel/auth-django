@@ -37,3 +37,11 @@ class SpecialCharValidator:
 
     def get_help_text(self):
         return _("Ваш пароль должен содержать хотя бы один спецсимвол.")
+
+
+def name_validator(value):
+    if not re.match(r'^[a-zA-Zа-яА-Я\s\-\'\`]+$', value):
+        raise ValidationError(
+            _("Имя может содержать только буквы, пробелы, дефисы и апострофы."),
+            code='invalid_name',
+        )
