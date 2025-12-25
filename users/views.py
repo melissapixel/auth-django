@@ -22,7 +22,7 @@ def login_view(request):
     if request.method == 'POST':
         form = CustomUserLoginForm(request=request, data=request.POST)
         if form.is_valid():
-            user = form.get_user()
+            user = form.get_user()  # проверка по бд на индивид
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')   # обязательно для AuthenticationForm, чтобы она могла вызвать authenticate(request, ...)
             return redirect('users:profile')
     else:
@@ -54,10 +54,11 @@ def update_account_details(request):
         form = CustomUserUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
             user = form.save(commit=False)
-            # user.clean()  
-            user.save()
+            user.save() # ← сохраняет в базу!
+            # ← Возвращает ЧАСТИЧНЫЙ шаблон с ОБНОВЛЁННЫМИ ДАННЫМИ
             return render(request, 'users/partials/account_details.html', {'user': user})
         else:
+            # ← Возвращает форму с ошибками
             return render(request, 'users/partials/edit_account_details.html', {'user': request.user, 'form': form})
     return render(request, 'users/partials/account_details.html', {'user': request.user})
      

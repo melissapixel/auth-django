@@ -38,6 +38,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, max_length=254)  # делаем email уникальным
     first_name = models.CharField(max_length=66)
     last_name = models.CharField(max_length=66)
+    
     address1 = models.CharField(max_length=128, 
                                 blank=True)  # позволяет оставлять поле пустым
     address2 = models.CharField(max_length=128, blank=True)

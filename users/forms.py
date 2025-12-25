@@ -98,7 +98,6 @@ class CustomUserLoginForm(AuthenticationForm):   # → получает гото
 class CustomUserUpdateForm(forms.ModelForm): # → значит, автоматически связана с моделью
     phone = forms.CharField(
         required=False,
-        validators=[RegexValidator(r'^\+?1?\d{9,15}$', "Enter a valid phone number.")],
         widget=forms.TextInput(attrs={'class': 'input-register form-control', 'placeholder': 'Your phone number'})
     )
     first_name = forms.CharField(
